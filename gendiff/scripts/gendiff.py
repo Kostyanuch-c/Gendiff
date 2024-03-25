@@ -1,5 +1,8 @@
 #!/usr/bin/env python3.10
 import argparse
+from generate_diff import generate_diff
+
+print(generate_diff())
 
 
 def main():
