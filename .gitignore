@@ -5,3 +5,5 @@ dist/
 .coverage
 coverage.xml
 *.pyc
+gendiff/first_file.json
+gendiff/second_file.json
