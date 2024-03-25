@@ -1,4 +1,7 @@
 .venv/
 .idea/
 dist/
-__pycache__
+*pycache*
+.coverage
+coverage.xml
+*.pyc
