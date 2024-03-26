@@ -15,7 +15,7 @@ check: selfcheck test lint
 selfcheck:
 	poetry check
 
-build:
+build:check
 	poetry build
 
 publish:
