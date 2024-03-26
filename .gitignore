@@ -7,5 +7,3 @@ coverage.xml
 *.pyc
 first_file.json
 second_file.json
-tests/fixtures/first_test_file.json
-tests/fixtures/second_test_file.json
