@@ -47,6 +47,7 @@ def generate_diff(first_file, second_file):
                 else:
                     diff1.extend([key, value1])
                     diff2.extend([key, value2])
+
             elif key in first_data:
                 diff1.extend([key, value1])
             else:
