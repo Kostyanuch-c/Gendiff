@@ -54,5 +54,4 @@ def generate_diff(first_file, second_file):
 
             added_string = update_string(diff1, diff2)
             string += added_string
-
-        print(string + '}')
+        return string + '}'
