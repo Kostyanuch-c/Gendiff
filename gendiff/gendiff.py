@@ -10,7 +10,7 @@ def change_value_to_json(value):
     return str(value)
 
 
-def make_string(char, key, sub_value, sub_value2=None):
+def get_string(char, key, sub_value, sub_value2=None):
     if sub_value2:
         return (f"  {char[0]} {key}: {sub_value}\n"
                 f"  {char[1]} {key}: {sub_value2}")
@@ -19,13 +19,13 @@ def make_string(char, key, sub_value, sub_value2=None):
 
 def make_diff(key, value):
     if not value['first']:
-        return make_string('+', key, value['second'])
+        return get_string('+', key, value['second'])
     if not value['second']:
-        return make_string('-', key, value['first'])
+        return get_string('-', key, value['first'])
     if value['first'] == value['second']:
-        return make_string(' ', key, value['first'])
+        return get_string(' ', key, value['first'])
 
-    return make_string('-+', key, value['first'], value['second'])
+    return get_string('-+', key, value['first'], value['second'])
 
 
 def generate_diff(first_file, second_file):
