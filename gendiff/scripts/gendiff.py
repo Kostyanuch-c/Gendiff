@@ -1,5 +1,4 @@
 #!/usr/bin/env python3.10
-
 from gendiff import cli, generate_diff
 
 
