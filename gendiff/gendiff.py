@@ -1,7 +1,8 @@
+from itertools import chain
 import json
 
 
-def update_value(value):
+def change_value_to_json(value):
     if value in (True, False):
         return str(value).lower()
     if value is None:
@@ -9,20 +10,22 @@ def update_value(value):
     return str(value)
 
 
-def update_string(diff1, diff2):
-    if diff1 and diff2:
-        if diff1[1] == diff2[1]:
-            added_str = f"    {': '.join(diff1)}\n"
-            return added_str
-        added_str1 = f"  - {': '.join(diff1)}\n"
-        added_str2 = f"  + {': '.join(diff2)}\n"
-        return added_str1 + added_str2
-    if diff1:
-        added_str = f"  - {': '.join(diff1)}\n"
-        return added_str
-    if diff2:
-        added_str = f"  + {': '.join(diff2)}\n"
-        return added_str
+def make_string(char, key, sub_value, char2=None, sub_value2=None):
+    if char2:
+        return (f"  {char} {key}: {sub_value}\n"
+                f"  {char2} {key}: {sub_value2}")
+    return f"  {char} {key}: {sub_value}"
+
+
+def make_diff(key, value):
+    if not value['first']:
+        return make_string('+', key, value['second'])
+    if not value['second']:
+        return make_string('-', key, value['first'])
+    if value['first'] == value['second']:
+        return make_string(' ', key, value['first'])
+
+    return make_string('-', key, value['first'], '+', value['second'])
 
 
 def generate_diff(first_file, second_file):
@@ -30,28 +33,12 @@ def generate_diff(first_file, second_file):
         open(first_file, 'r') as file_1,
         open(second_file, 'r') as file_2,
     ):
-        first_data, second_data = json.load(file_1), json.load(file_2)
-        sorted_keys = sorted(set(first_data).union(set(second_data)))
+        data1, data2 = json.load(file_1), json.load(file_2)
+        sorted_keys = sorted(chain(data1, data2))
 
-        string = '{\n'
-        default = object
-        for key in sorted_keys:
-            diff1 = []
-            diff2 = []
-            value1 = update_value(first_data.get(key, default))
-            value2 = update_value(second_data.get(key, default))
-            if key in first_data and key in second_data:
-                if value1 == value2:
-                    diff1.extend([key, value1])
-                    diff2.extend([key, value2])
-                else:
-                    diff1.extend([key, value1])
-                    diff2.extend([key, value2])
-            elif key in first_data:
-                diff1.extend([key, value1])
-            else:
-                diff2.extend([key, value2])
+        combine_dct = {key: {'first': change_value_to_json(data1.get(key, '')),
+                             'second': change_value_to_json(data2.get(key, ''))}
+                       for key in sorted_keys}
 
-            added_string = update_string(diff1, diff2)
-            string += added_string
-        return string + '}'
+        diff_lst = [make_diff(key, value) for key, value in combine_dct.items()]
+        return '\n'.join(chain('{', diff_lst, '}'))
