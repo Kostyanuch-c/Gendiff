@@ -2,7 +2,7 @@ from itertools import chain
 import json
 
 
-def change_value_to_json(value):
+def get_json_value(value):
     if value in (True, False):
         return str(value).lower()
     if value is None:
@@ -36,8 +36,8 @@ def generate_diff(first_file, second_file):
         data1, data2 = json.load(file_1), json.load(file_2)
         sorted_keys = sorted(chain(data1, data2))
 
-        combine_dct = {key: {'first': change_value_to_json(data1.get(key, '')),
-                             'second': change_value_to_json(data2.get(key, ''))}
+        combine_dct = {key: {'first': get_json_value(data1.get(key, '')),
+                             'second': get_json_value(data2.get(key, ''))}
                        for key in sorted_keys}
 
         diff_lst = [make_diff(key, value) for key, value in combine_dct.items()]
