@@ -1,21 +1,21 @@
-import gendiff.gendiff
 import pytest
+import gendiff
+
+tpl_input = ('tests/fixtures/first_test_diff1.json tests/fixtures/second_test_diff1.json',
+             'tests/fixtures/first_test_diff1.yml tests/fixtures/second_test_diff1.yml',
+             'tests/fixtures/first_test_diff2.json tests/fixtures/second_test_diff2.json',
+             'tests/fixtures/first_test_diff2.yml tests/fixtures/second_test_diff2.yml')
+
+tpl_expected = ('tests/fixtures/diff_result1.txt',
+                'tests/fixtures/diff_result1.txt',
+                'tests/fixtures/diff_result2.txt',
+                'tests/fixtures/diff_result2.txt')
 
 
-@pytest.fixture
-def coll():
-    first_file_path = 'tests/fixtures/first_test_file.json'
-    second_file_path = 'tests/fixtures/second_test_file.json'
-    return first_file_path, second_file_path
-
-
-@pytest.mark.parametrize("test_input,expected", [(None, 'null'), (True, 'true'), (123, '123')])
-def test_get_json_value(test_input, expected):
-    result = gendiff.gendiff.get_json_value(test_input)
-    assert result == expected
-
-
-def test_generated_diff(coll):
-    result = gendiff.generate_diff(coll[0], coll[1])
-    with open('tests/fixtures/guess_result.txt', 'r') as guess_result:
-        assert result == guess_result.read()
+@pytest.mark.parametrize("data", zip(tpl_input, tpl_expected))
+def test_json_generated_diff(data):
+    test_input, expected = data
+    test_file1, test_file2 = test_input.split()
+    result = gendiff.generate_diff(test_file1, test_file2)
+    with open(expected, 'r') as file:
+        assert result == file.read()
