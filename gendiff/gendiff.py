@@ -3,7 +3,7 @@ from itertools import chain
 from gendiff.pars_files import pars_file
 
 
-def stringify(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):
+def stringify(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):  # noqa
     def walk(current_value, depth):
         if not isinstance(current_value, dict):
             return current_value
@@ -17,26 +17,22 @@ def stringify(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):
             val = current_value[key]
             if not isinstance(val, dict):
                 lines.append(f'{deep_indent}  {key}: {val}')
-                continue
-            if val.get('type', default) == default:
+
+            elif val.get('type', default) == default:
                 lines.append(f'{deep_indent}  {key}: '
                              f'{walk(val, deep_indent_size)}')
-                continue
-            if val['type'] == 'changed' and not isinstance(val['value'], dict):
+            elif val['type'] == 'changed' and not isinstance(val['value'],
+                                                             dict):
                 sub_value = val['sub_value']
                 if isinstance(sub_value, dict):
                     sub_value = walk(sub_value, deep_indent_size)
 
                 lines.append(f'{deep_indent}- {key}: {sub_value}')
                 lines.append(f'{deep_indent}+ {key}: {val["value"]}')
-                continue
-            if val['type'] == 'added' or val['type'] == 'delete':
+
+            else:
                 lines.append(f'{deep_indent}{val["symbol"]} {key}: '
                              f'{walk(val["value"], deep_indent_size)}')
-                continue
-
-            lines.append(f'{deep_indent}  {key}: '
-                         f'{walk(val["value"], deep_indent_size)}')
 
         result = chain("{", lines, [current_indent + "}"])
         return '\n'.join(result)
@@ -64,7 +60,8 @@ def build_ast(current_dct1, current_dct2, result={}, acc={}):
                 else current_dct1[key]
 
             result[key] = {'value': value,
-                           'type': 'unchanged'}
+                           'type': 'unchanged',
+                           'symbol': ' '}
         else:
             value = build_ast(current_dct1[key], current_dct2[key],
                               acc, result) \
@@ -73,7 +70,8 @@ def build_ast(current_dct1, current_dct2, result={}, acc={}):
 
             result[key] = {'value': value,
                            'sub_value': current_dct1[key],
-                           'type': 'changed'}
+                           'type': 'changed',
+                           'symbol': ' '}
 
     new_value = copy.deepcopy(result)
     return new_value
