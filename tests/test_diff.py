@@ -16,6 +16,6 @@ tpl_expected = ('tests/fixtures/diff_result1.txt',
 def test_json_generated_diff(data):
     test_input, expected = data
     test_file1, test_file2 = test_input.split()
-    result = gendiff.generate_diff(test_file1, test_file2)
+    result = gendiff.generate_diff(test_file1, test_file2, 'stylish')
     with open(expected, 'r') as file:
         assert result == file.read()
