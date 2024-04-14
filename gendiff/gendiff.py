@@ -28,7 +28,7 @@ def build_ast(current_dct1, current_dct2, result={}, acc={}):
         else:
             value = build_ast(current_dct1[key], current_dct2[key],
                               acc, result) \
-                if isinstance(current_dct1[key], dict) \
+                if isinstance(current_dct1[key], dict) or isinstance(current_dct2[key], dict) \
                 else current_dct2[key]
 
             result[key] = {'value': value,
