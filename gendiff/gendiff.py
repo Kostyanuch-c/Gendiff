@@ -4,6 +4,10 @@ from gendiff.formaters import plain, stylish, json_format
 
 
 def build_ast(current_dct1, current_dct2, result={}, acc={}):
+    if isinstance(current_dct2, str):
+        return current_dct2
+    if isinstance(current_dct1, str):
+        return current_dct1
     keys = current_dct1.keys() | current_dct2.keys()
     acc = copy.deepcopy(result)
     result.clear()
