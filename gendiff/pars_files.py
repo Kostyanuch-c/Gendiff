@@ -36,6 +36,6 @@ def pars_file(path_first_file, path_second_file):
                 data2 = yaml.safe_load(file_2)
 
             list(map(get_json_and_yml_value, (data1, data2)))
-        else:
-            data1, data2 = '', ''
+        # else:
+        #     data1, data2 = '', ''
         return data1, data2

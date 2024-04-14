@@ -40,26 +40,18 @@ def build_ast(current_dct1, current_dct2, result={}, acc={}):
     return new_value
 
 
-# def generate_diff(first_file, second_file, formats=stylish.make_volume):
-#     if isinstance(formats, str):
-#         if formats == 'plain':
-#             formats = plain.make_flat
-#         elif formats == 'json':
-#             formats = json_format.make_json
-#         elif formats == 'stylish':
-#             formats = stylish.make_volume
-#         else:
-#             return 'Wrong formatter!'
-#     data1, data2 = pars_file(first_file, second_file)
-#     if not data1:
-#         return 'Not accepted file type!'
-#     ast_dct = build_ast(data1, data2)
-#     return formats(ast_dct)
-def generate_diff(first_file, second_file, formats):
-    if formats == 'stylish':
-        formats = stylish.make_volume
-    else:
-        formats = plain.make_flat
+def generate_diff(first_file, second_file, formats=stylish.make_volume):
+    if isinstance(formats, str):
+        if formats == 'plain':
+            formats = plain.make_flat
+        elif formats == 'json':
+            formats = json_format.make_json
+        elif formats == 'stylish':
+            formats = stylish.make_volume
+        else:
+            return 'Wrong formatter!'
     data1, data2 = pars_file(first_file, second_file)
+    if not data1:
+        return 'Not accepted file type!'
     ast_dct = build_ast(data1, data2)
     return formats(ast_dct)
