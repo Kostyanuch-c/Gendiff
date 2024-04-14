@@ -17,7 +17,7 @@ def build_ast(current_dct1, current_dct2, result={}, acc={}):
                            'type': 'delete',
                            'symbol': '-'}
         elif current_dct1[key] == current_dct2[key]:
-            value = build_ast(current_dct2[key], current_dct2[key],
+            value = build_ast(current_dct1[key], current_dct2[key],
                               acc, result) \
                 if isinstance(current_dct1[key], dict) \
                 else current_dct1[key]
