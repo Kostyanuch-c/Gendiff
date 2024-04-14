@@ -6,9 +6,9 @@ common:
   setting5:
     key5: value5
   setting6:
+    key: value
     doge:
       wow: so much
-    key: value
     ops: vops
 group1:
   baz: bars
