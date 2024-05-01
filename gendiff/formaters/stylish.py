@@ -6,7 +6,7 @@ def make_volume(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):  # noqa
                        if value['value'][0] is None)
 
     def walk(cur_parent, depth, flag=None):
-        if not isinstance(cur_parent, list) and cur_parent not in ast_dct:
+        if not isinstance(cur_parent, list):
             return cur_parent
         deep_indent_size = depth + spaces_cnt
         deep_indent = replacer * (deep_indent_size - lft_shift)
