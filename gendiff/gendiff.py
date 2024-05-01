@@ -3,40 +3,55 @@ from gendiff.pars_files import pars_file
 from gendiff.formaters import plain, stylish, json_format
 
 
-def build_ast(current_dct1, current_dct2, result={}, acc={}):
-    if isinstance(current_dct2, str):
-        return current_dct2
+def make_joints(tree, dictionary, parent=None):
+    if not isinstance(tree, dict):
+        return tree
+    children = []
 
-    keys = current_dct2.keys() if isinstance(current_dct1, str) \
-        else current_dct1.keys() | current_dct2.keys()
+    for key in tree.keys():
+        name = make_joints(tree[key], dictionary, parent=key)
+        children.append(name)
+        new_children = copy.deepcopy(children)
+        children.clear()
+        dictionary[key] = (parent, *new_children)
 
-    acc = copy.deepcopy(result)
-    result.clear()
+    return list(tree.keys())
+
+
+def build_ast(cur_dct1, cur_dct2, result={}):
+    keys = cur_dct2.keys() | cur_dct1.keys()
     for key in sorted(keys):
-        if key not in current_dct1:
-            result[key] = {'value': current_dct2[key],
+        if key not in cur_dct1:
+            result[key] = {'value': cur_dct2[key],
                            'type': 'added',
                            'symbol': '+'}
-        elif key not in current_dct2:
-            result[key] = {'value': current_dct1[key],
+        elif key not in cur_dct2:
+            result[key] = {'value': cur_dct1[key],
                            'type': 'delete',
                            'symbol': '-'}
-        elif current_dct1[key] == current_dct2[key]:
-            result[key] = {'value': build_ast(current_dct2[key],
-                                              current_dct2[key],
-                                              acc, result),
+
+        elif (cur_dct1[key][1] == cur_dct2[key][1]
+              or isinstance(cur_dct1[key][1], list)
+              and isinstance(cur_dct2[key][1], list)
+              and any(True if x in cur_dct1[key][1]
+                      else False for x in cur_dct2[key][1])):
+
+            if (isinstance(cur_dct1[key][1], list)
+                    and isinstance(cur_dct2[key][1], list)):
+                child = set(cur_dct2[key][1]) | set(cur_dct1[key][1])
+                val = (cur_dct2[key][0], sorted(list(child)))
+            else:
+                val = cur_dct2[key]
+
+            result[key] = {'value': val,
                            'type': 'unchanged',
                            'symbol': ' '}
         else:
-            result[key] = {'value': build_ast(current_dct1[key],
-                                              current_dct2[key],
-                                              acc, result),
-                           'sub_value': current_dct1[key],
+            result[key] = {'value': cur_dct2[key],
+                           'sub_value': cur_dct1[key],
                            'type': 'changed',
                            'symbol': ' '}
-
-    new_value = copy.deepcopy(result)
-    return new_value
+    return result
 
 
 def generate_diff(first_file, second_file, formats=stylish.make_volume):
@@ -52,5 +67,11 @@ def generate_diff(first_file, second_file, formats=stylish.make_volume):
     data1, data2 = pars_file(first_file, second_file)
     if not data1:
         return 'Not accepted file type!'
-    ast_dct = build_ast(data1, data2)
+
+    d1 = {}
+    d2 = {}
+    make_joints(data1, d1)
+    make_joints(data2, d2)
+
+    ast_dct = build_ast(d1, d2)
     return formats(ast_dct)
