@@ -1,8 +1,10 @@
 def check_type(value):
     if isinstance(value, dict):
         return '[complex value]'
-    if value in ('true', 'false', 'null') or isinstance(value, int):
+    if value in ('true', 'false', 'null'):
         return value
+    if value.isnumeric():
+        return int(value)
     return f"'{value}'"
 
 
