@@ -1,7 +1,7 @@
 from itertools import chain
 
 
-def make_volume(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):
+def make_volume(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):  # noqa
     def walk(current_value, depth, flag=None):
         if not isinstance(current_value, dict):
             return current_value
@@ -15,7 +15,8 @@ def make_volume(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):
             data = current_value[key]
             if flag:
                 if isinstance(data, dict):
-                    if flag == '-' and data.get('sub_value', default) != default:
+                    if (flag == '-'
+                            and data.get('sub_value', default) != default):
                         val = data["sub_value"]
                     elif data.get('value', default) != default:
                         val = data['value']
@@ -28,15 +29,20 @@ def make_volume(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):
 
             elif data['type'] == 'added' or data['type'] == 'delete':
                 new_flag = '+' if data['type'] == 'added' else '-'
-                lines.append(f'{deep_indent}{data["symbol"]} {key}: '
-                             f'{walk(data["value"], deep_indent_size, flag=new_flag)}')
+                lines.append(
+                    f'{deep_indent}{data["symbol"]} {key}: '
+                    f'{walk(data["value"], deep_indent_size, flag=new_flag)}')
             elif data['type'] == 'unchanged':
                 lines.append(f'{deep_indent}{data["symbol"]} {key}: '
                              f'{walk(data["value"], deep_indent_size)}')
 
             else:
-                lines.append(f'{deep_indent}- {key}: {walk(data["sub_value"], deep_indent_size, flag="-")}')
-                lines.append(f'{deep_indent}+ {key}: {walk(data["value"], deep_indent_size, flag="+")}')
+                lines.append(
+                    f'{deep_indent}- {key}:'
+                    f' {walk(data["sub_value"], deep_indent_size, flag="-")}')
+                lines.append(
+                    f'{deep_indent}+ {key}:'
+                    f' {walk(data["value"], deep_indent_size, flag="+")}')
 
         result = chain("{", lines, [current_indent + "}"])
         return '\n'.join(result)
