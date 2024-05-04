@@ -45,10 +45,7 @@
                                 "symbol": " "
                             }
                         },
-                        "sub_value": {
-                            "wow": ""
-                        },
-                        "type": "changed",
+                        "type": "unchanged",
                         "symbol": " "
                     },
                     "key": {
@@ -62,28 +59,11 @@
                         "symbol": "+"
                     }
                 },
-                "sub_value": {
-                    "key": "value",
-                    "doge": {
-                        "wow": ""
-                    }
-                },
-                "type": "changed",
+                "type": "unchanged",
                 "symbol": " "
             }
         },
-        "sub_value": {
-            "setting1": "Value 1",
-            "setting2": "200",
-            "setting3": "true",
-            "setting6": {
-                "key": "value",
-                "doge": {
-                    "wow": ""
-                }
-            }
-        },
-        "type": "changed",
+        "type": "unchanged",
         "symbol": " "
     },
     "group1": {
@@ -108,14 +88,7 @@
                 "symbol": " "
             }
         },
-        "sub_value": {
-            "baz": "bas",
-            "foo": "bar",
-            "nest": {
-                "key": "value"
-            }
-        },
-        "type": "changed",
+        "type": "unchanged",
         "symbol": " "
     },
     "group2": {
