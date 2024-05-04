@@ -1,246 +1,143 @@
 {
-    "abc": {
-        "value": [
-            "group2",
-            "12345"
-        ],
-        "type": "delete",
-        "symbol": "-"
-    },
-    "baz": {
-        "value": [
-            "group1",
-            "bars"
-        ],
-        "sub_value": [
-            "group1",
-            "bas"
-        ],
+    "common": {
+        "value": {
+            "follow": {
+                "value": "false",
+                "type": "added",
+                "symbol": "+"
+            },
+            "setting1": {
+                "value": "Value 1",
+                "type": "unchanged",
+                "symbol": " "
+            },
+            "setting2": {
+                "value": "200",
+                "type": "delete",
+                "symbol": "-"
+            },
+            "setting3": {
+                "value": "null",
+                "sub_value": "true",
+                "type": "changed",
+                "symbol": " "
+            },
+            "setting4": {
+                "value": "blah blah",
+                "type": "added",
+                "symbol": "+"
+            },
+            "setting5": {
+                "value": {
+                    "key5": "value5"
+                },
+                "type": "added",
+                "symbol": "+"
+            },
+            "setting6": {
+                "value": {
+                    "doge": {
+                        "value": {
+                            "wow": {
+                                "value": "so much",
+                                "sub_value": "",
+                                "type": "changed",
+                                "symbol": " "
+                            }
+                        },
+                        "sub_value": {
+                            "wow": ""
+                        },
+                        "type": "changed",
+                        "symbol": " "
+                    },
+                    "key": {
+                        "value": "value",
+                        "type": "unchanged",
+                        "symbol": " "
+                    },
+                    "ops": {
+                        "value": "vops",
+                        "type": "added",
+                        "symbol": "+"
+                    }
+                },
+                "sub_value": {
+                    "key": "value",
+                    "doge": {
+                        "wow": ""
+                    }
+                },
+                "type": "changed",
+                "symbol": " "
+            }
+        },
+        "sub_value": {
+            "setting1": "Value 1",
+            "setting2": "200",
+            "setting3": "true",
+            "setting6": {
+                "key": "value",
+                "doge": {
+                    "wow": ""
+                }
+            }
+        },
         "type": "changed",
         "symbol": " "
     },
-    "common": {
-        "value": [
-            null,
-            [
-                "follow",
-                "setting1",
-                "setting2",
-                "setting3",
-                "setting4",
-                "setting5",
-                "setting6"
-            ]
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
-    "deep": {
-        "value": [
-            "group3",
-            [
-                "id"
-            ]
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
-    "doge": {
-        "value": [
-            "setting6",
-            [
-                "wow"
-            ]
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
-    "fee": {
-        "value": [
-            "group3",
-            "100500"
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "follow": {
-        "value": [
-            "common",
-            "false"
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "foo": {
-        "value": [
-            "group1",
-            "bar"
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
     "group1": {
-        "value": [
-            null,
-            [
-                "baz",
-                "foo",
-                "nest"
-            ]
-        ],
-        "type": "unchanged",
+        "value": {
+            "baz": {
+                "value": "bars",
+                "sub_value": "bas",
+                "type": "changed",
+                "symbol": " "
+            },
+            "foo": {
+                "value": "bar",
+                "type": "unchanged",
+                "symbol": " "
+            },
+            "nest": {
+                "value": "str",
+                "sub_value": {
+                    "key": "value"
+                },
+                "type": "changed",
+                "symbol": " "
+            }
+        },
+        "sub_value": {
+            "baz": "bas",
+            "foo": "bar",
+            "nest": {
+                "key": "value"
+            }
+        },
+        "type": "changed",
         "symbol": " "
     },
     "group2": {
-        "value": [
-            null,
-            [
-                "abc",
-                "deep"
-            ]
-        ],
+        "value": {
+            "abc": "12345",
+            "deep": {
+                "id": "45"
+            }
+        },
         "type": "delete",
         "symbol": "-"
     },
     "group3": {
-        "value": [
-            null,
-            [
-                "deep",
-                "fee"
-            ]
-        ],
+        "value": {
+            "deep": {
+                "id": {
+                    "number": "45"
+                }
+            },
+            "fee": "100500"
+        },
         "type": "added",
         "symbol": "+"
-    },
-    "id": {
-        "value": [
-            "deep",
-            [
-                "number"
-            ]
-        ],
-        "sub_value": [
-            "deep",
-            "45"
-        ],
-        "type": "changed",
-        "symbol": " "
-    },
-    "key": {
-        "value": [
-            "setting6",
-            "value"
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
-    "key5": {
-        "value": [
-            "setting5",
-            "value5"
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "nest": {
-        "value": [
-            "group1",
-            "str"
-        ],
-        "sub_value": [
-            "group1",
-            [
-                "key"
-            ]
-        ],
-        "type": "changed",
-        "symbol": " "
-    },
-    "number": {
-        "value": [
-            "id",
-            "45"
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "ops": {
-        "value": [
-            "setting6",
-            "vops"
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "setting1": {
-        "value": [
-            "common",
-            "Value 1"
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
-    "setting2": {
-        "value": [
-            "common",
-            "200"
-        ],
-        "type": "delete",
-        "symbol": "-"
-    },
-    "setting3": {
-        "value": [
-            "common",
-            "null"
-        ],
-        "sub_value": [
-            "common",
-            "true"
-        ],
-        "type": "changed",
-        "symbol": " "
-    },
-    "setting4": {
-        "value": [
-            "common",
-            "blah blah"
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "setting5": {
-        "value": [
-            "common",
-            [
-                "key5"
-            ]
-        ],
-        "type": "added",
-        "symbol": "+"
-    },
-    "setting6": {
-        "value": [
-            "common",
-            [
-                "doge",
-                "key",
-                "ops"
-            ]
-        ],
-        "type": "unchanged",
-        "symbol": " "
-    },
-    "wow": {
-        "value": [
-            "doge",
-            "so much"
-        ],
-        "sub_value": [
-            "doge",
-            ""
-        ],
-        "type": "changed",
-        "symbol": " "
     }
 }
