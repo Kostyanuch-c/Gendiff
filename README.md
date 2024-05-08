@@ -4,10 +4,37 @@
 
 
 # Generate difference 
+## description
+
+The function ***gendiff*** allows you to determine the difference between two files
+and display their differences. 
+
+To use it, type the command in this view
+***gendiff <path_to_file_1> <path_to_file_2>***
+
+**Supported input file types**
+* .json, .yaml, .yml.
+
+**Possible output formats** 
+* stylish, plain, json
+ 
+The default output format is **stylish** but you can define supported output with the optional key.
+To use another output additionally type option key -f or --format
+
+
+## Install
++ **Linux:**
+ 
+  ```bash
+   python3 -m pip install --user git+https://github.com/Kostyanuch-c/python-project-50.git
+  ```
+   
+   
 
 <details>
 
-<summary>Tips for collapsed sections</summary>
+<summary>Demonstration</summary>
+
 ![json_test](https://github.com/Kostyanuch-c/python-project-50/assets/98832310/a8e10d7b-6b42-4ddc-90f3-3058f3d76e2c)
 
 </details>
