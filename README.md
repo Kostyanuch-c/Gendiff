@@ -35,6 +35,6 @@ To use another output additionally type option key -f or --format
 
 <summary>Demonstration</summary>
 
-![json_test](https://github.com/Kostyanuch-c/python-project-50/assets/98832310/a8e10d7b-6b42-4ddc-90f3-3058f3d76e2c)
+![gendiff](https://github.com/Kostyanuch-c/python-project-50/assets/98832310/338ffba7-c15e-4af6-8125-3d12565ba27a)
 
 </details>
