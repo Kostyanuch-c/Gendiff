@@ -5,5 +5,5 @@ dist/
 .coverage
 coverage.xml
 *.pyc
-first_file.json
+first_file.yml
 second_file.json
