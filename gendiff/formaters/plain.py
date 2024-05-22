@@ -1,5 +1,5 @@
-def check_type(value):
-    if isinstance(value, dict):
+def to_str(value):
+    if isinstance(value, list | dict):
         return '[complex value]'
     if value in ('true', 'false', 'null'):
         return value
@@ -11,21 +11,22 @@ def check_type(value):
 def make_flat(ast, start_line='Property'):  # noqa
     def walk(cur_val, parents):
         lines = []
-        for key in cur_val.keys():
+        for data in cur_val:
+            key, val = data['key'], data['value']
             cur_parents = f'{parents}.{key}' if parents else f'{key}'
-            val = cur_val[key]
-            checked_val = check_type(val['value'])
-            if val['type'] == 'added':
+
+            checked_val = to_str(val)
+            if data['type'] == 'added':
                 lines.append(f"{start_line} '{cur_parents}'"
                              f" was added with value: {checked_val}")
-            elif val['type'] == 'delete':
+            elif data['type'] == 'delete':
                 lines.append(f"{start_line} '{cur_parents}' was removed")
-            elif val['type'] == 'unchanged':
-                if not isinstance(val['value'], dict):
+            elif data['type'] == 'unchanged' or data['type'] == 'nested':
+                if not isinstance(val, dict | list):
                     continue
-                lines.append(walk(val['value'], cur_parents))
+                lines.append(walk(val, cur_parents))
             else:
-                sub_value = check_type(val['sub_value'])
+                sub_value = to_str(data['sub_value'])
                 lines.append(f"{start_line} '{cur_parents}' was updated."
                              f" From {sub_value} to {checked_val}")
         return '\n'.join(lines)

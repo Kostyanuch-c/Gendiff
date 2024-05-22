@@ -1,58 +1,15 @@
-import copy
 from gendiff.pars_files import pars_file
-from gendiff.formaters import plain, stylish, json_format
+from gendiff.formaters import choice_format
+from gendiff.ast import build_ast
 
 
-def build_ast(current_dct1, current_dct2, result={}, acc={}):
-    if isinstance(current_dct2, str):
-        return current_dct2
+def generate_diff(first_file, second_file, formats):
+    formats = choice_format.get_format(formats)
+    data = list(map(pars_file, (first_file, second_file)))
 
-    keys = current_dct2.keys() if isinstance(current_dct1, str) \
-        else current_dct1.keys() | current_dct2.keys()
-
-    acc = copy.deepcopy(result)
-    result.clear()
-    for key in sorted(keys):
-        if key not in current_dct1:
-            result[key] = {'value': current_dct2[key],
-                           'type': 'added',
-                           'symbol': '+'}
-        elif key not in current_dct2:
-            result[key] = {'value': current_dct1[key],
-                           'type': 'delete',
-                           'symbol': '-'}
-        elif (current_dct1[key] == current_dct2[key]
-              or isinstance(current_dct1[key], dict)
-              and isinstance(current_dct2[key], dict)):
-            result[key] = {'value': build_ast(current_dct1[key],
-                                              current_dct2[key],
-                                              acc, result),
-                           'type': 'unchanged',
-                           'symbol': ' '}
-        else:
-            result[key] = {'value': build_ast(current_dct1[key],
-                                              current_dct2[key],
-                                              acc, result),
-                           'sub_value': current_dct1[key],
-                           'type': 'changed',
-                           'symbol': ' '}
-
-    new_value = copy.deepcopy(result)
-    return new_value
-
-
-def generate_diff(first_file, second_file, formats=stylish.make_volume):
-    if isinstance(formats, str):
-        if formats == 'plain':
-            formats = plain.make_flat
-        elif formats == 'json':
-            formats = json_format.make_json
-        elif formats == 'stylish':
-            formats = stylish.make_volume
-        else:
-            return 'Wrong formatter!'
-    data1, data2 = pars_file(first_file, second_file)
-    if not data1:
+    if all(data):
+        ast_dct = build_ast(data[0], data[1])
+    else:
         return 'Not accepted file type!'
-    ast_dct = build_ast(data1, data2)
-    return formats(ast_dct)
+
+    return formats(ast_dct) if type(formats) is not str else formats

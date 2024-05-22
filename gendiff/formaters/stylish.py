@@ -1,48 +1,40 @@
 from itertools import chain
 
+SPACES_CNT = 4
+LFT_SHIFT = 2
 
-def make_volume(ast_dct, replacer=' ', spaces_cnt=4, lft_shift=2):  # noqa
-    def walk(current_value, depth, flag=None):
-        if not isinstance(current_value, dict):
-            return current_value
 
-        deep_indent_size = depth + spaces_cnt
-        deep_indent = replacer * (deep_indent_size - lft_shift)
+def make_volume(ast_dct, replacer=' '):
+    def walk(cur_value, depth, flag=None):
+        if not isinstance(cur_value, dict | list):
+            return cur_value
+
+        deep_indent_size = depth + SPACES_CNT
+        deep_indent = replacer * (deep_indent_size - LFT_SHIFT)
         current_indent = replacer * depth
         default = object
         lines = []
-        for key in current_value.keys():
-            data = current_value[key]
-            if flag:
-                if isinstance(data, dict):
-                    if (flag == '-'
-                            and data.get('sub_value', default) != default):
-                        val = data["sub_value"]
-                    elif data.get('value', default) != default:
-                        val = data['value']
-                    else:
-                        val = data
-                else:
-                    val = data
-                lines.append(f'{deep_indent}  {key}: '
-                             f'{walk(val, deep_indent_size, flag)}')
+        for data in cur_value:
+            if (isinstance(cur_value, dict)
+                    and cur_value.get('type', default) == default):
+                lines.append(f'{deep_indent}  {data}: '
+                             f'{walk(cur_value[data], deep_indent_size, flag)}')
+                continue
 
-            elif data['type'] == 'added' or data['type'] == 'delete':
-                new_flag = '+' if data['type'] == 'added' else '-'
+            value = data['value']
+            if data['type'] == 'changed':
                 lines.append(
-                    f'{deep_indent}{data["symbol"]} {key}: '
-                    f'{walk(data["value"], deep_indent_size, flag=new_flag)}')
-            elif data['type'] == 'unchanged':
-                lines.append(f'{deep_indent}{data["symbol"]} {key}: '
-                             f'{walk(data["value"], deep_indent_size)}')
-
-            else:
-                lines.append(
-                    f'{deep_indent}- {key}:'
+                    f'{deep_indent}- {data["key"]}:'
                     f' {walk(data["sub_value"], deep_indent_size, flag="-")}')
                 lines.append(
-                    f'{deep_indent}+ {key}:'
-                    f' {walk(data["value"], deep_indent_size, flag="+")}')
+                    f'{deep_indent}+ {data["key"]}:'
+                    f' {walk(value, deep_indent_size, flag="+")}')
+
+            else:
+                symbol = data["symbol"] if not flag else ' '
+                lines.append(
+                    f'{deep_indent}{symbol} {data["key"]}: '
+                    f'{walk(value, deep_indent_size)}')
 
         result = chain("{", lines, [current_indent + "}"])
         return '\n'.join(result)
