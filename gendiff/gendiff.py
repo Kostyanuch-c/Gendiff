@@ -3,7 +3,7 @@ from gendiff.formaters import choice_format
 from gendiff.ast import build_ast
 
 
-def generate_diff(first_file, second_file, formats):
+def generate_diff(first_file, second_file, formats='stylish'):
     formats = choice_format.get_format(formats)
     data = list(map(pars_file, (first_file, second_file)))
 
