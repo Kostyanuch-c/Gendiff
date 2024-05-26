@@ -14,4 +14,4 @@ def generate_diff(first_file, second_file, formatters='stylish'):
     else:
         return 'Not accepted file type!'
 
-    return 'Wrong formatter!' if type(formatters) is str else formatter(tree)
+    return 'Wrong formatter!' if type(formatter) is str else formatter(tree)
