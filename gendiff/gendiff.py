@@ -4,7 +4,7 @@ from gendiff.tree_compilation import build_tree
 
 
 def generate_diff(first_file, second_file, formatters='stylish'):
-    formatters = choice_formatter.get_formatter(formatters)
+    formatter = choice_formatter.get_formatter(formatters)
     data1, file_format1 = open_file(first_file)
     data2, file_format2 = open_file(second_file)
     dict1 = parse_file(data1)
@@ -14,4 +14,4 @@ def generate_diff(first_file, second_file, formatters='stylish'):
     else:
         return 'Not accepted file type!'
 
-    return 'Wrong formatter!' if type(formatters) is str else formatters(tree)
+    return 'Wrong formatter!' if type(formatters) is str else formatter(tree)
