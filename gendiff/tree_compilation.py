@@ -1,4 +1,4 @@
-def build_ast(data1, data2):  # noqa
+def build_tree(data1, data2):  # noqa
     def walk(current_dct1, current_dct2):
         if isinstance(current_dct2, str):
             return current_dct2

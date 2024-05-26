@@ -1,15 +1,17 @@
-from gendiff.pars_files import pars_file
-from gendiff.formaters import choice_format
-from gendiff.ast import build_ast
+from gendiff.parse_files import parse_file, open_file
+from gendiff.formatters import choice_formatter
+from gendiff.tree_compilation import build_tree
 
 
-def generate_diff(first_file, second_file, formats='stylish'):
-    formats = choice_format.get_format(formats)
-    data = list(map(pars_file, (first_file, second_file)))
-
-    if all(data):
-        ast_dct = build_ast(data[0], data[1])
+def generate_diff(first_file, second_file, formatters='stylish'):
+    formatters = choice_formatter.get_formatter(formatters)
+    data1, file_format1 = open_file(first_file)
+    data2, file_format2 = open_file(second_file)
+    dict1 = parse_file(data1)
+    dict2 = parse_file(data2)
+    if isinstance(dict1, dict) and isinstance(dict2, dict):
+        tree = build_tree(dict1, dict2)
     else:
         return 'Not accepted file type!'
 
-    return formats(ast_dct) if type(formats) is not str else formats
+    return 'Wrong formatter!' if type(formatters) is str else formatters(tree)

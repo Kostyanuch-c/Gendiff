@@ -1,7 +1,7 @@
 import pytest
 import gendiff
 
-FORMATS = ('stylish', 'plain', 'json')
+FORMATTERS = ('stylish', 'plain', 'json')
 PATH_RESULT = ('tests/fixtures/volume_result.txt', 'tests/fixtures/flat_result.txt', 'tests/fixtures/json_result.txt')
 
 
@@ -27,13 +27,13 @@ def test_with_wrong_formatters(input_json, formats):
     assert result == 'Wrong formatter!'
 
 
-@pytest.mark.parametrize("formats", FORMATS)
+@pytest.mark.parametrize("formats", FORMATTERS)
 def test_with_wrong_type_files(formats):
     result = gendiff.generate_diff(PATH_RESULT[0], PATH_RESULT[1], formats)
     assert result == 'Not accepted file type!'
 
 
-@pytest.mark.parametrize("formats, path", zip(FORMATS, PATH_RESULT))
+@pytest.mark.parametrize("formats, path", zip(FORMATTERS, PATH_RESULT))
 def test_normal_json_file_diff(input_json, formats, path):
     test_path1, test_path2 = input_json.split()
     result = gendiff.generate_diff(test_path1, test_path2, formats)
@@ -41,7 +41,7 @@ def test_normal_json_file_diff(input_json, formats, path):
         assert result == file.read()
 
 
-@pytest.mark.parametrize("formats, path", zip(FORMATS, PATH_RESULT))
+@pytest.mark.parametrize("formats, path", zip(FORMATTERS, PATH_RESULT))
 def test_normal_different_type_diff(input_yaml, formats, path):
     test_path1, test_path2 = input_yaml.split()
     result = gendiff.generate_diff(test_path1, test_path2, formats)
@@ -49,7 +49,7 @@ def test_normal_different_type_diff(input_yaml, formats, path):
         assert result == file.read()
 
 
-@pytest.mark.parametrize("formats, path", zip(FORMATS, PATH_RESULT))
+@pytest.mark.parametrize("formats, path", zip(FORMATTERS, PATH_RESULT))
 def test_normal_yaml_file_diff(input_yaml_and_json, formats, path):
     test_path1, test_path2 = input_yaml_and_json.split()
     result = gendiff.generate_diff(test_path1, test_path2, formats)
