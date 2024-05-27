@@ -18,7 +18,7 @@ def get_json_and_yml_value(current_value):
 
 def open_file(path_file):
     with open(path_file, 'r') as file:
-        suitable_formats = ('json', 'yaml', 'yml')
+        suitable_formats = ('.json', '.yaml', '.yml')
         if path_file.endswith(suitable_formats):
             if path_file.endswith('json'):
                 file_format = 'json'
