@@ -21,19 +21,22 @@ def open_file(path_file):
         suitable_formats = ('json', 'yaml', 'yml')
         if path_file.endswith(suitable_formats):
             if path_file.endswith('json'):
-                data = json.load(file)
                 file_format = 'json'
             else:
-                data = yaml.safe_load(file)
                 file_format = 'yaml | yml'
         else:
-            data = False
-            file_format = 'Not accepted file type!'
+            file_format = ''
 
-        return data, file_format
+        return file.read(), file_format
 
 
-def parse_file(data):
-    if isinstance(data, dict):
-        get_json_and_yml_value(data)
-    return data
+def parse_file(data, file_format):
+    if file_format == 'json':
+        dct = json.loads(data)
+    elif file_format == 'yaml | yml':
+        dct = yaml.safe_load(data)
+    else:
+        return file_format
+
+    get_json_and_yml_value(dct)
+    return dct
