@@ -1,5 +1,5 @@
 import json
 
 
-def make_json(ast):
-    return json.dumps(ast, indent=4)
+def make_json(tree):
+    return json.dumps(tree, indent=4)

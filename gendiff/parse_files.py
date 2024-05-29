@@ -32,11 +32,16 @@ def open_file(path_file):
 
 def parse_file(data, file_format):
     if file_format == 'json':
-        dct = json.loads(data)
+        dictionary = json.loads(data)
     elif file_format == 'yaml | yml':
-        dct = yaml.safe_load(data)
+        dictionary = yaml.safe_load(data)
     else:
         return file_format
 
-    get_json_and_yml_value(dct)
-    return dct
+    get_json_and_yml_value(dictionary)
+    return dictionary
+
+
+def open_and_parse_file(path_file):
+    data, file_format = open_file(path_file)
+    return parse_file(data, file_format)

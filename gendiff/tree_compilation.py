@@ -1,6 +1,6 @@
 def build_tree(data1, data2):  # noqa
     if not isinstance(data1, dict) or not isinstance(data2, dict):
-        return
+        return None
 
     def walk(current_dct1, current_dct2):
         if isinstance(current_dct2, str):
