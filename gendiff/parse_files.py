@@ -1,4 +1,6 @@
 import json
+import os
+
 import yaml
 
 
@@ -17,23 +19,25 @@ def get_json_and_yml_value(current_value):
 
 
 def open_file(path_file):
-    with open(path_file, 'r') as file:
-        suitable_formats = ('.json', '.yaml', '.yml')
-        if path_file.endswith(suitable_formats):
-            if path_file.endswith('.json'):
-                file_format = 'json'
-            else:
-                file_format = 'yaml | yml'
-        else:
-            file_format = ''
+    extension = os.path.splitext(path_file)[-1]
 
-        return file.read(), file_format
+    with open(path_file, 'r', encoding='utf-8') as file:
+        data = file.read()
+
+    if extension == '.json':
+        file_format = 'json'
+    elif extension in ('.yaml', '.yml'):
+        file_format = 'yaml'
+    else:
+        file_format = ''
+
+    return data, file_format
 
 
 def parse_file(data, file_format):
     if file_format == 'json':
         dictionary = json.loads(data)
-    elif file_format == 'yaml | yml':
+    elif file_format == 'yaml':
         dictionary = yaml.safe_load(data)
     else:
         return file_format
