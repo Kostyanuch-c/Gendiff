@@ -22,14 +22,9 @@ jobs:
           make install
       - name: Set up Xvfb
         run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          nohup Xvfb :99 -screen 0 1024x768x24
-          echo "Xvfb is running"
-
-      - name: Debug before linter
-        run: |
-          echo "Starting make check"
+           sudo apt-get update
+           sudo apt-get install -y xvfb
+           nohup Xvfb :99 -screen 0 1024x768x24
 
       - name: Run linter and pytest
         run: |
