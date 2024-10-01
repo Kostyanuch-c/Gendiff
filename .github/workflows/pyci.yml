@@ -24,7 +24,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb
-          nohup Xvfb :99 -screen 0 1024x768x24
+          nohup Xvfb :99 -screen 0 1024x768x24 &
+
       - name: Run linter and pytest
         env:
           DISPLAY: :99
