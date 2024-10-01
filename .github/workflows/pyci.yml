@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: [ "3.10", "3.11", "3.12" ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -20,6 +20,11 @@ jobs:
         run: |
           pip install poetry
           make install
+      - name: Set up Xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          nohup Xvfb :99 -screen 0 1024x768x24
       - name: Run linter and pytest
         run: |
           make check
