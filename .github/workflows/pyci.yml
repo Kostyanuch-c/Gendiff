@@ -22,17 +22,19 @@ jobs:
           make install
       - name: Set up Xvfb
         run: |
-           sudo apt-get update
-           sudo apt-get install -y xvfb
-           nohup Xvfb :99 -screen 0 1024x768x24
-
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          nohup Xvfb :99 -screen 0 1024x768x24
       - name: Run linter and pytest
+        env:
+          DISPLAY: :99
         run: |
           make check
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v6.0.0
         if: github.ref_name == 'main'
         env:
+          DISPLAY: :99
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: make test-coverage
