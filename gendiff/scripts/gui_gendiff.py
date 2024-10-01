@@ -4,7 +4,6 @@ from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox as mb
 from tkinter import filedialog as fd
 
-from gendiff.formatters.output_formatter import FORMATTERS
 from gendiff import generate_diff
 
 
@@ -65,7 +64,6 @@ class DiffApp:
                                      command=self.exit_app)
         self.quit_button.pack(side='bottom', pady=10)
 
-
         self.button_to_json = tk.Button(
             self.bottom_frame, text='Показать в json формате',
             command=lambda: self.update_diff('json')
@@ -83,6 +81,7 @@ class DiffApp:
         self.button_to_json.pack_forget()
         self.button_to_plain.pack_forget()
         self.button_to_stylish.pack_forget()
+
     def load_file1(self):
         file_path = self.open_file_dialog("Выберите первый файл")
         if file_path:
@@ -113,7 +112,11 @@ class DiffApp:
         if self.file1 and self.file2:
             try:
                 self.show_format_buttons()
-                result_diff = generate_diff(self.file1, self.file2, formatters=formats)
+                result_diff = generate_diff(
+                    self.file1,
+                    self.file2,
+                    formatters=formats
+                )
                 self.result_text.delete(1.0, tk.END)
                 self.result_text.insert(tk.END, result_diff)
             except Exception as e:
