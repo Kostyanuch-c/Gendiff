@@ -22,7 +22,7 @@ The default output format is **stylish** but you can define supported output wit
 To use another output additionally type option key -f or --format
 
 
-## Install
+### Install
 + **Linux:**
  
   ```bash
@@ -36,5 +36,23 @@ To use another output additionally type option key -f or --format
 <summary>Demonstration</summary>
 
 ![gendiff](https://github.com/Kostyanuch-c/python-project-50/assets/98832310/338ffba7-c15e-4af6-8125-3d12565ba27a)
+
+</details>
+
+## GUI Interface
+
+In addition to the command-line interface, the application now includes a graphical user interface (GUI) for easier comparison of JSON and YAML files.
+
+### Running the GUI
+ To launch the GUI, run the following command:
+  ```bash
+   make gendiff_gui
+  ```
+   
+<details>
+
+<summary>Example:</summary>
+
+![MyDiff-_Ubuntu_-2024-10-01-14-02-00](https://github.com/user-attachments/assets/1d923c1a-4f30-4b65-b949-03949bed9089)
 
 </details>
