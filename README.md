@@ -24,7 +24,7 @@ To use another output additionally type option key -f or --format
 In addition to the command-line interface, the application now includes a graphical
 user interface (GUI) for easier comparison of JSON and YAML files.
 
-### Install as a Python package
+## Install as a Python package
 + **Linux:**
  
 ```bash
