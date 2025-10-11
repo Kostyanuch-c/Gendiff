@@ -26,7 +26,7 @@ To use another output additionally type option key -f or --format
 + **Linux:**
  
   ```bash
-   python3 -m pip install --user git+https://github.com/Kostyanuch-c/python-project-50.git
+   python3 -m pip install --user git+https://github.com/Kostyanuch-c/Gendiff.git
   ```
    
    
@@ -42,6 +42,13 @@ To use another output additionally type option key -f or --format
 ## GUI Interface
 
 In addition to the command-line interface, the application now includes a graphical user interface (GUI) for easier comparison of JSON and YAML files.
+### Preparing to run the GUI
+Before launching the GUI, make sure to clone the repository:
+
+```bash
+git clone https://github.com/Kostyanuch-c/Gendiff.git
+cd Gendiff
+```
 
 ### Running the GUI
  To launch the GUI, run the following command:
