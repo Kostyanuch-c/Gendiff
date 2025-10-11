@@ -26,17 +26,11 @@ jobs:
           sudo apt-get install -y xvfb
           nohup Xvfb :99 -screen 0 1024x768x24 &
 
-      - name: Run linter and pytest
+      - name: Run linter and tests with coverage
         env:
           DISPLAY: :99
         run: |
-          make check
-
-      - name: Run tests and generate coverage
-        env:
-          DISPLAY: :99
-          run: |
-            make test-coverage
+          make test-coverage
 
       - name: Upload coverage to Qlty
         if: github.ref_name == 'main'
