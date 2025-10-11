@@ -10,6 +10,9 @@ test-coverage:
 gendif:
 	poetry run gendiff
 
+gendiff_gui:
+	poetry run gendiff_gui
+
 check: selfcheck test lint
 
 selfcheck:
