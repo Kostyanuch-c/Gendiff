@@ -11,7 +11,7 @@ jobs:
       matrix:
         python-version: [ "3.10", "3.11", "3.12" ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -31,12 +31,16 @@ jobs:
           DISPLAY: :99
         run: |
           make check
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v6.0.0
-        if: github.ref_name == 'main'
+
+      - name: Run tests and generate coverage
         env:
           DISPLAY: :99
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          run: |
+            make test-coverage
+
+      - name: Upload coverage to Qlty
+        if: github.ref_name == 'main'
+        uses: qltysh/qlty-action/coverage@v2
         with:
-          coverageCommand: make test-coverage
-          debug: true
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: reports/lcov.info
