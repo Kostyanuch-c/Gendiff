@@ -32,18 +32,28 @@ python3 -m pip install --user git+https://github.com/Kostyanuch-c/Gendiff.git
 + **CLI**
 ```bash
 gendiff [-h] [-f FORMAT] first_file second_file
-``` 
-+ **GUI**
-```bash
-gendiff_gui
-``` 
+```
 <details>
 
 <summary>Demonstration</summary>
 
-![gendiff](https://github.com/Kostyanuch-c/python-project-50/assets/98832310/338ffba7-c15e-4af6-8125-3d12565ba27a)
+ ![gendiff](https://github.com/Kostyanuch-c/python-project-50/assets/98832310/338ffba7-c15e-4af6-8125-3d12565ba27a)
 
 </details>
+
++ **GUI**
+```bash
+gendiff_gui
+```
+<details>
+
+ <summary>Demonstration</summary>
+
+ ![MyDiff-_Ubuntu_-2024-10-01-14-02-00](https://github.com/user-attachments/assets/1d923c1a-4f30-4b65-b949-03949bed9089)
+
+</details>
+  
+
 
 ### !Notes for using the package without cloning!
 
@@ -84,11 +94,4 @@ make gendiff
 ```bash
 make gendiff_gui
 ```
-   
-  <details>
 
-  <summary>Example:</summary>
-
-  ![MyDiff-_Ubuntu_-2024-10-01-14-02-00](https://github.com/user-attachments/assets/1d923c1a-4f30-4b65-b949-03949bed9089)
-
-  </details>
