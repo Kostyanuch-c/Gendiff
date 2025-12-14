@@ -1,6 +1,4 @@
-### Hexlet tests and linter status:
-
-[![Actions Status](https://github.com/Kostyanuch-c/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Kostyanuch-c/python-project-50/actions) [![Maintainability](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff/maintainability.svg)](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff) [![Python CI](https://github.com/Kostyanuch-c/python-project-50/actions/workflows/pyci.yml/badge.svg)](https://github.com/Kostyanuch-c/python-project-50/actions/workflows/pyci.yml) [![Code Coverage](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff/coverage.svg)](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff)
+[![Maintainability](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff/maintainability.svg)](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff) [![Python CI](https://github.com/Kostyanuch-c/python-project-50/actions/workflows/pyci.yml/badge.svg)](https://github.com/Kostyanuch-c/python-project-50/actions/workflows/pyci.yml) [![Code Coverage](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff/coverage.svg)](https://qlty.sh/gh/Kostyanuch-c/projects/Gendiff)
 
 
 # Generate difference 
